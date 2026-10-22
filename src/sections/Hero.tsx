@@ -19,6 +19,8 @@ export default function Hero() {
     { id: 0, i: 0 },
   ])
   const [count, setCount] = useState(3)
+  // Sobrevive a pausar y reanudar el bucle, así los ids no se repiten ni el contador vuelve atrás.
+  const nextId = useRef(3)
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const phoneY = useTransform(scrollYProgress, [0, 1], [0, 120])
@@ -26,9 +28,8 @@ export default function Hero() {
 
   useEffect(() => {
     if (reduced) return
-    let n = 3
     const t = window.setInterval(() => {
-      const id = n++
+      const id = nextId.current++
       setItems((prev) => [{ id, i: id % NOTIFS.length }, ...prev].slice(0, 4))
       setCount(id + 1)
     }, 1700)
