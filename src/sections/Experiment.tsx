@@ -108,6 +108,8 @@ export default function Experiment() {
 
   const back = () => {
     if (step === 0) return
+    // Cancela el avance pendiente si se acaba de elegir una respuesta.
+    window.clearTimeout(timer.current)
     setDir(-1)
     setStep((s) => s - 1)
     setPicked(null)
