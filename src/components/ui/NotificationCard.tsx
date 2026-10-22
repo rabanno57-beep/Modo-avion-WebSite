@@ -9,7 +9,7 @@ const tones = {
 
 export function NotificationCard({ n, compact = false }: { n: Notif; compact?: boolean }) {
   return (
-    <div className={`flex w-full items-start gap-2.5 rounded-2xl bg-surface-2/95 text-left ring-1 ring-white/10 backdrop-blur ${compact ? 'p-2.5' : 'p-3'}`}>
+    <div className={`flex w-full items-start gap-2.5 rounded-2xl bg-surface-2/95 text-left ring-1 ring-ink/10 shadow-sm backdrop-blur ${compact ? 'p-2.5' : 'p-3'}`}>
       <span aria-hidden="true" className={`grid size-8 shrink-0 place-items-center rounded-lg ${tones[n.tone]}`}>
         <Bell size={16} strokeWidth={2.4} />
       </span>

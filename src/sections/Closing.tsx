@@ -24,12 +24,12 @@ export default function Closing() {
       <div
         aria-hidden="true"
         className={`absolute inset-0 -z-10 transition-opacity duration-1000 ${calm ? 'opacity-100' : 'opacity-0'}`}
-        style={{ background: 'radial-gradient(60% 50% at 50% 40%, rgba(159,216,200,0.14), transparent 70%)' }}
+        style={{ background: 'radial-gradient(60% 50% at 50% 40%, rgba(58,108,152,0.12), transparent 70%)' }}
       />
       <div
         aria-hidden="true"
         className={`absolute inset-0 -z-10 transition-opacity duration-1000 ${calm ? 'opacity-0' : 'opacity-100'}`}
-        style={{ background: 'radial-gradient(50% 40% at 80% 20%, rgba(198,244,50,0.10), transparent 70%)' }}
+        style={{ background: 'radial-gradient(50% 40% at 80% 20%, rgba(29,78,216,0.10), transparent 70%)' }}
       />
 
       <div className="mx-auto w-full max-w-6xl">

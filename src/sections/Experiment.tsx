@@ -79,11 +79,15 @@ export default function Experiment() {
   const q = QUESTIONS[step]
 
   // Mueve el foco al nuevo contenido solo cuando cambia el paso (no al cargar la página).
+  // Entre preguntas, AnimatePresence aún muestra la anterior: ese foco lo mueve onExitComplete.
   useEffect(() => {
     if (prevStep.current === step) return
+    const swapped = prevStep.current < QUESTIONS.length && step < QUESTIONS.length
     prevStep.current = step
-    headingRef.current?.focus({ preventScroll: true })
+    if (!swapped) headingRef.current?.focus({ preventScroll: true })
   }, [step])
+
+  const focusHeading = () => headingRef.current?.focus({ preventScroll: true })
 
   useEffect(() => () => window.clearTimeout(timer.current), [])
 
@@ -104,6 +108,8 @@ export default function Experiment() {
 
   const back = () => {
     if (step === 0) return
+    // Cancela el avance pendiente si se acaba de elegir una respuesta.
+    window.clearTimeout(timer.current)
     setDir(-1)
     setStep((s) => s - 1)
     setPicked(null)
@@ -155,7 +161,7 @@ export default function Experiment() {
               />
             </div>
 
-            <AnimatePresence mode="wait" custom={dir}>
+            <AnimatePresence mode="wait" custom={dir} onExitComplete={focusHeading}>
               <motion.div
                 key={q.id}
                 custom={dir}

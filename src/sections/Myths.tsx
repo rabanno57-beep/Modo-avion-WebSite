@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowRight, Check, CircleHelp, ExternalLink, RotateCcw, X } from 'lucide-react'
 import { Section } from '../components/ui/Section'
@@ -14,17 +14,12 @@ export default function Myths() {
   const [choice, setChoice] = useState<boolean | null>(null)
   const [hits, setHits] = useState(0)
   const headRef = useRef<HTMLParagraphElement>(null)
-  const prevI = useRef(i)
 
   const done = i >= LIST.length
   const m = LIST[i]
 
-  // Mueve el foco al nuevo contenido solo cuando la afirmación cambia (no al cargar la página).
-  useEffect(() => {
-    if (prevI.current === i) return
-    prevI.current = i
-    headRef.current?.focus({ preventScroll: true })
-  }, [i])
+  // Mueve el foco al nuevo contenido cuando termina de salir la afirmación anterior (no al cargar la página).
+  const focusHead = () => headRef.current?.focus({ preventScroll: true })
 
   const answer = (v: boolean) => {
     if (choice !== null || !m) return
@@ -74,7 +69,7 @@ export default function Myths() {
         </div>
 
         <div className="relative min-h-[26rem] rounded-[2rem] border border-line bg-surface p-6 sm:p-10">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" onExitComplete={focusHead}>
             {!done && m ? (
               <motion.div
                 key={m.id}
