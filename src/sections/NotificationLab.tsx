@@ -104,6 +104,7 @@ export default function NotificationLab() {
       return
     }
     if (n === TOTAL) {
+      setNext(TOTAL + 1)
       setStats((s) => ({ ...s, totalMs: performance.now() - startRef.current }))
       setLive(null)
       setPhase('done')
@@ -203,7 +204,13 @@ export default function NotificationLab() {
                 <div className="flex flex-1 flex-col">
                   <div className="mb-3 flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-muted">
                     <span aria-live="polite">
-                      Siguiente: <b className="text-lime">{Math.min(next, TOTAL)}</b>
+                      {phase === 'done' ? (
+                        <b className="text-lime">Completado</b>
+                      ) : (
+                        <>
+                          Siguiente: <b className="text-lime">{next}</b>
+                        </>
+                      )}
                     </span>
                     <span>
                       {Math.min(next - 1, TOTAL)}/{TOTAL}
