@@ -27,7 +27,8 @@ export default function Offscreen() {
 
   const addCustom = () => {
     const t = draft.trim()
-    if (!t || custom.length >= 6 || custom.includes(t)) return
+    const taken = [...ACTIVITIES.map((a) => a.title), ...custom].some((x) => x.toLowerCase() === t.toLowerCase())
+    if (!t || custom.length >= 6 || taken) return
     setCustom((c) => [...c, t])
     setDraft('')
   }
